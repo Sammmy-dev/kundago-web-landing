@@ -1,8 +1,13 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FaApple, FaGooglePlay, FaStar } from 'react-icons/fa'
 import { BiShoppingBag } from 'react-icons/bi'
 import { RiGlobalLine, RiShip2Line } from 'react-icons/ri'
 import { AiOutlineSafetyCertificate } from 'react-icons/ai'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const navItems = [
   { label: 'About Us', href: '#about-us' },
@@ -78,21 +83,115 @@ const testimonials = [
     name: 'Awa Jallow',
     role: 'Banjul',
     quote: 'Kunda Go makes my life so much easier fast delivery and everything I need in one app',
+    avatar: 'https://images.unsplash.com/photo-1562173650-f61426fbe683?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtYmlhbiUyMG1hbnxlbnwwfHwwfHx8Mg%3D%3D',
   },
   {
     name: 'Ousman Sarr',
     role: 'Serekunda',
     quote: 'Reliable and intuitive. Shopping has never been this simple!',
+    avatar: 'https://images.unsplash.com/photo-1533108344127-a586d2b02479?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     name: 'Fatou Bah',
     role: 'Bakau',
     quote: 'The order tracking is spot on. I always know exactly when my groceries arrive',
+    avatar: 'https://images.unsplash.com/photo-1672760580588-17fb288ec41b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGdhbWJpYW4lMjBtYW58ZW58MHx8MHx8fDI%3D',
   },
 ]
 
 function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const heroContentRef = useRef<HTMLDivElement | null>(null)
+  const heroImageRef = useRef<HTMLDivElement | null>(null)
+  const aboutRef = useRef<HTMLElement | null>(null)
+  const featuresRef = useRef<HTMLElement | null>(null)
+  const faqRef = useRef<HTMLElement | null>(null)
+  const testimonialsRef = useRef<HTMLElement | null>(null)
+
+  useGSAP(() => {
+    const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+    heroTimeline
+      .fromTo(heroContentRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 })
+      .fromTo(heroImageRef.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.85 }, '-=0.55')
+
+    const revealSections = [aboutRef.current, featuresRef.current, faqRef.current, testimonialsRef.current].filter(Boolean) as HTMLElement[]
+    gsap.fromTo(
+      revealSections,
+      { opacity: 0, y: 35 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: aboutRef.current,
+          start: 'top 88%',
+          once: true,
+        },
+      },
+    )
+
+    gsap.utils.toArray<HTMLElement>('.feature-card').forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: index * 0.06,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 93%',
+            once: true,
+          },
+        },
+      )
+    })
+
+    gsap.utils.toArray<HTMLElement>('.faq-item').forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          delay: index * 0.05,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 95%',
+            once: true,
+          },
+        },
+      )
+    })
+
+    gsap.utils.toArray<HTMLElement>('.testimonial-card').forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          delay: index * 0.08,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 95%',
+            once: true,
+          },
+        },
+      )
+    })
+  })
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
@@ -102,13 +201,14 @@ function App() {
     <div className="min-h-screen bg-[#ecf8eb] text-slate-900">
       <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#" className="flex items-center gap-3 font-black text-slate-900">
-            <img src="/navbar-logo.png" alt="KundaGo logo" className="h-10 w-10 object-contain" />
-            <span className="text-xl font-black tracking-tight">
+          <a href="#" className="flex items-center gap-3 font-black text-slate-900 transition duration-200 hover:scale-[1.02]">
+            <img src="/navbar-logo.png" alt="KundaGo logo" className="h-10 w-10 object-contain transition duration-200 hover:rotate-3" />
+            <span className="text-xl font-black tracking-tight transition duration-200 hover:text-emerald-700">
               <span className="text-emerald-700">Kunda</span>
               <span className="text-red-600">Go</span>
             </span>
           </a>
+
           <nav className="hidden gap-8 text-sm font-medium text-slate-600 md:flex">
             {navItems.map((item) => (
               <a key={item.label} href={item.href} className="transition hover:text-slate-900">
@@ -116,22 +216,42 @@ function App() {
               </a>
             ))}
           </nav>
-          {/* <a
-            href="#download"
-            className="rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700"
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-slate-900 md:hidden"
+            aria-label="Toggle navigation menu"
           >
-            Download Now
-          </a> */}
+            <span className="text-xl font-semibold">{mobileMenuOpen ? '×' : '☰'}</span>
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="border-t border-slate-200 bg-white/95 px-6 py-4 md:hidden">
+            <nav className="flex flex-col gap-3 text-sm font-medium text-slate-600">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="rounded-2xl px-3 py-2 transition hover:bg-emerald-50 hover:text-slate-900"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-7xl px-6 py-12">
-        <section className="flex flex-col gap-5 lg:flex-row lg:items-center lg:h-[600px] overflow-hidden">
-          <div className="space-y-6 flex-1 flex justify-end flex-col h-full lg:max-w-xl">
+        <section className="flex flex-col gap-5 md:flex-row lg:items-center md:h-[600px] overflow-hidden">
+          <div ref={heroContentRef} className="space-y-6 flex-1 flex justify-end flex-col h-full lg:max-w-xl">
             <div className="flex items-center gap-2 w-fit rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm shadow-slate-200/80">
               <span className="flex items-center gap-1 rounded-full bg-emerald-600 px-2.5 py-1 text-white">
                 <FaStar className="h-3.5 w-3.5" />
-                4.0
+                4.5
               </span>
               star reviews
             </div>
@@ -151,25 +271,25 @@ function App() {
             </div>
 
             <div className="flex flex-col gap-4 mt-[10%] sm:flex-row">
-              <a href="#download" className="flex items-center justify-center gap-3 rounded-3xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:bg-slate-800">
+              <a href="#download" className="flex items-center justify-center gap-3 rounded-3xl bg-slate-950 px-5 py-4 text-sm font-semibold text-white transition hover:bg-slate-800 hover:-translate-y-0.5">
                 <FaApple className="h-5 w-5" />
                 Download on Apple Store
               </a>
-              <a href="#download" className="flex items-center justify-center gap-3 rounded-3xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-900 transition hover:border-slate-300">
+              <a href="#download" className="flex items-center justify-center gap-3 rounded-3xl border border-slate-200 bg-white px-5 py-4 text-sm font-semibold text-slate-900 transition hover:border-slate-300 hover:-translate-y-0.5">
                 <FaGooglePlay className="h-5 w-5 text-slate-900" />
                 Download on Google Play
               </a>
             </div>
           </div>
 
-          <div className="relative flex-1">
+          <div ref={heroImageRef} className="relative flex items-end flex-1 h-full">
             <img src="/hero-image.png" alt="KundaGo mobile experience" className="w-full object-cover" />
           </div>
         </section>
 
-        <section id="about-us" className="relative mt-24 overflow-hidden py-12">
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            <div className="relative w-full h-full max-lg:order-last">
+        <section ref={aboutRef} id="about-us" className="relative mt-24 overflow-hidden py-12">
+          <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+            <div className="relative w-full h-full max-md:order-last">
               <img src="/landscape-behind-man-with-box.png" alt="Background landscape" className="w-full h-full object-cover" />
               <img
                 src="/man-with-box.png"
@@ -189,11 +309,11 @@ function App() {
                 Our mission is to combine technology, trust, and convenience to bring everything you need right to your fingertips.
               </p>
 
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-3">
                 {stats.map((stat) => (
-                  <div key={stat.label} className="rounded-[1.75rem] border border-slate-200 bg-white/80 px-5 py-6 text-center shadow-[0_16px_40px_-20px_rgba(15,23,42,0.3)] backdrop-blur-sm">
-                    <p className="text-3xl font-black tracking-tight text-emerald-600">{stat.value}</p>
-                    <p className="mt-2 text-sm text-slate-600">{stat.label}</p>
+                  <div key={stat.label} className="stat-card rounded-[1.5rem] border border-slate-200 px-3 py-4 text-center">
+                    <p className="text-2xl font-black tracking-tight text-emerald-600 sm:text-3xl">{stat.value}</p>
+                    <p className="mt-1 text-xs text-slate-600 sm:mt-2 sm:text-sm">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -201,7 +321,7 @@ function App() {
           </div>
         </section>
 
-        <section id="why-kundago" className="mt-24">
+        <section ref={featuresRef} id="why-kundago" className="mt-24">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">WHY KundaGo</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Built for the way you shop today</h2>
@@ -210,7 +330,7 @@ function App() {
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-12">
             {features.map((feature) => (
-              <div key={feature.title} className={`min-h-[220px] rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${feature.accent} ${feature.layoutClass}`}>
+              <div key={feature.title} className={`feature-card min-h-[220px] rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${feature.accent} ${feature.layoutClass}`}>
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
                   {feature.icon}
                 </div>
@@ -221,7 +341,7 @@ function App() {
           </div>
         </section>
 
-        <section id="faq" className="mt-24">
+        <section ref={faqRef} id="faq" className="mt-24">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">FAQ</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Everything you need to know</h2>
@@ -233,7 +353,7 @@ function App() {
               const isOpen = openFaq === index
 
               return (
-                <div key={faq.question} className="rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:shadow-lg">
+                <div key={faq.question} className="faq-item rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:shadow-lg">
                   <button
                     type="button"
                     onClick={() => toggleFaq(index)}
@@ -258,7 +378,7 @@ function App() {
           </div>
         </section>
 
-        <section id="testimonials" className="mt-24">
+        <section ref={testimonialsRef} id="testimonials" className="mt-24">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">Testimonials</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">What our users say</h2>
@@ -266,14 +386,17 @@ function App() {
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {testimonials.map((item) => (
-              <article key={item.name} className="group relative overflow-hidden rounded-[2rem] border border-emerald-200/70 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-800 px-6 py-8 text-white shadow-[0_24px_80px_-24px_rgba(6,95,70,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_-20px_rgba(6,95,70,0.55)]">
+              <article key={item.name} className="testimonial-card group relative overflow-hidden rounded-[2rem] border border-emerald-200/70 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-800 px-6 py-8 text-white shadow-[0_24px_80px_-24px_rgba(6,95,70,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_-20px_rgba(6,95,70,0.55)]">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.24),_transparent_40%)]" />
                 <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-white/10 blur-2xl" />
                 <div className="relative">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold tracking-wide">{item.name}</p>
-                      <p className="text-sm text-emerald-100/90">{item.role}</p>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <img src={item.avatar} alt={item.name} className=" min-h-12 min-w-12 h-12 w-12 rounded-full border-2 border-white/40 object-cover" />
+                      <div>
+                        <p className="font-semibold tracking-wide">{item.name}</p>
+                        <p className="text-sm text-emerald-100/90">{item.role}</p>
+                      </div>
                     </div>
                     <div className="flex gap-1 text-yellow-300">
                       {[...Array(5)].map((_, index) => (
@@ -291,12 +414,17 @@ function App() {
         </section>
       </main>
 
-      <footer id="footer" className="border-t border-slate-200 bg-slate-950 text-slate-200">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[1.2fr_0.8fr_1fr]">
+      <footer id="footer" className="relative overflow-hidden border-t border-slate-200 bg-slate-950 text-slate-200">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-10">
+          <span className="select-none text-[clamp(3.5rem,10vw,8rem)] font-black uppercase tracking-[0.3em] text-[#ecf8eb] sm:block hidden opacity-30">
+            KundaGo
+          </span>
+        </div>
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-[1.2fr_0.8fr_1fr]">
           <div className="space-y-5">
-            <div className="flex items-center gap-3">
-              <img src="/footer-logo.png" alt="KundaGo footer logo" className="h-10 w-10 object-contain" />
-              <span className="text-xl font-semibold text-white">KundaGo</span>
+            <div className="flex items-center gap-3 transition duration-200 hover:scale-[1.02]">
+              <img src="/footer-logo.png" alt="KundaGo footer logo" className="h-10 w-10 object-contain transition duration-200 hover:rotate-3" />
+              <span className="text-xl font-semibold text-white transition duration-200 hover:text-emerald-400">KundaGo</span>
             </div>
             <p className="max-w-sm text-sm text-slate-400">
               KundaGo — Shop Smart Deliver Fast. Your trusted shopping & delivery companion.
