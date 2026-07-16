@@ -220,29 +220,27 @@ function App() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-slate-900 md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition duration-300 hover:border-slate-300 hover:text-slate-900 md:hidden"
             aria-label="Toggle navigation menu"
           >
             <span className="text-xl font-semibold">{mobileMenuOpen ? '×' : '☰'}</span>
           </button>
         </div>
 
-        {mobileMenuOpen && (
-          <div className="border-t border-slate-200 bg-white/95 px-6 py-4 md:hidden">
-            <nav className="flex flex-col gap-3 text-sm font-medium text-slate-600">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-2xl px-3 py-2 transition hover:bg-emerald-50 hover:text-slate-900"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        )}
+        <div className={`overflow-hidden border-t border-slate-200 bg-white/95 px-6 transition-all duration-300 ease-out md:hidden ${mobileMenuOpen ? 'max-h-64 opacity-100 py-4' : 'max-h-0 opacity-0 py-0'}`}>
+          <nav className="flex flex-col gap-3 text-sm font-medium text-slate-600">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-2xl px-3 py-2 transition duration-300 hover:bg-emerald-50 hover:text-slate-900"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
       </header>
 
       <main className="mx-auto max-w-7xl px-6 py-12">
@@ -353,7 +351,7 @@ function App() {
               const isOpen = openFaq === index
 
               return (
-                <div key={faq.question} className="faq-item rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:shadow-lg">
+                <div key={faq.question} className="faq-item rounded-[2rem] border border-slate-200 bg-white shadow-sm transition duration-300 hover:shadow-lg">
                   <button
                     type="button"
                     onClick={() => toggleFaq(index)}
@@ -367,11 +365,9 @@ function App() {
                     </div>
                     <span className="text-2xl font-semibold text-emerald-700">{isOpen ? '−' : '+'}</span>
                   </button>
-                  {isOpen && (
-                    <div className="border-t border-slate-200 px-6 py-5">
-                      <p className="text-sm leading-7 text-slate-600">{faq.answer}</p>
-                    </div>
-                  )}
+                  <div className={`overflow-hidden border-t border-slate-200 px-6 transition-all duration-300 ease-out ${isOpen ? 'max-h-40 opacity-100 py-5' : 'max-h-0 opacity-0 py-0'}`}>
+                    <p className="text-sm leading-7 text-slate-600">{faq.answer}</p>
+                  </div>
                 </div>
               )
             })}
