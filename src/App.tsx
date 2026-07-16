@@ -27,35 +27,35 @@ const features = [
     description: 'Receive your orders quickly, on time, every time with real-time updates, streamlined dispatch, and dependable arrival windows designed to fit your routine.',
     icon: <RiShip2Line className="h-5 w-5 text-emerald-600" />,
     accent: 'bg-emerald-100',
-    layoutClass: 'md:col-span-1 xl:col-span-7',
+    layoutClass: 'md:col-span-7 xl:col-span-7',
   },
   {
     title: 'Secure Payments',
     description: 'Pay safely with trusted methods, encrypted transactions, and flexible checkout choices that make every purchase feel protected and effortless.',
     icon: <AiOutlineSafetyCertificate className="h-5 w-5 text-rose-500" />,
     accent: 'bg-rose-100',
-    layoutClass: 'md:col-span-1 xl:col-span-5',
+    layoutClass: 'md:col-span-5 xl:col-span-5',
   },
   {
     title: 'Wide Selection',
     description: 'Explore a broad range of essentials from groceries and household items to electronics, all curated in one place for simpler shopping decisions.',
     icon: <BiShoppingBag className="h-5 w-5 text-emerald-600" />,
     accent: 'bg-slate-100',
-    layoutClass: 'md:col-span-1 xl:col-span-5',
+    layoutClass: 'md:col-span-5 xl:col-span-5',
   },
   {
     title: 'Trusted by Users',
     description: 'Join thousands of happy customers who rely on KundaGo for consistent service, transparent support, and a shopping experience they keep coming back to.',
     icon: <FaStar className="h-5 w-5 text-emerald-600" />,
     accent: 'bg-emerald-50',
-    layoutClass: 'md:col-span-1 xl:col-span-7',
+    layoutClass: 'md:col-span-7 xl:col-span-7',
   },
   {
     title: 'International Shipping',
     description: 'Ship across borders with reliable tracking, predictable delivery planning, and support that helps your packages move smoothly from checkout to destination.',
     icon: <RiGlobalLine className="h-5 w-5 text-cyan-600" />,
     accent: 'bg-cyan-100',
-    layoutClass: 'md:col-span-1 xl:col-span-12',
+    layoutClass: 'md:col-span-12 xl:col-span-12',
   },
 ]
 
@@ -326,7 +326,7 @@ function App() {
             <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-slate-700">Everything you need in one app fast, safe, and simple to use.</p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-12">
+          <div className="mt-12 grid gap-6 md:grid-cols-12">
             {features.map((feature) => (
               <div key={feature.title} className={`feature-card min-h-[220px] rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${feature.accent} ${feature.layoutClass}`}>
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm">
