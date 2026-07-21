@@ -15,11 +15,11 @@ const navItems = [
   { label: 'FAQ', href: '#faq' },
 ]
 
-const stats = [
-  { label: 'Order delivered', value: '50k+' },
-  { label: 'Active users', value: '12k+' },
-  { label: 'On-time rate', value: '98%' },
-]
+// const stats = [
+//   { label: 'Order delivered', value: '50k+' },
+//   { label: 'Active users', value: '12k+' },
+//   { label: 'On-time rate', value: '98%' },
+// ]
 
 const features = [
   {
@@ -78,26 +78,26 @@ const faqs = [
   },
 ]
 
-const testimonials = [
-  {
-    name: 'Awa Jallow',
-    role: 'Banjul',
-    quote: 'Kunda Go makes my life so much easier fast delivery and everything I need in one app',
-    avatar: 'https://images.unsplash.com/photo-1562173650-f61426fbe683?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtYmlhbiUyMG1hbnxlbnwwfHwwfHx8Mg%3D%3D',
-  },
-  {
-    name: 'Ousman Sarr',
-    role: 'Serekunda',
-    quote: 'Reliable and intuitive. Shopping has never been this simple!',
-    avatar: 'https://images.unsplash.com/photo-1533108344127-a586d2b02479?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    name: 'Fatou Bah',
-    role: 'Bakau',
-    quote: 'The order tracking is spot on. I always know exactly when my groceries arrive',
-    avatar: 'https://images.unsplash.com/photo-1672760580588-17fb288ec41b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGdhbWJpYW4lMjBtYW58ZW58MHx8MHx8fDI%3D',
-  },
-]
+// const testimonials = [
+//   {
+//     name: 'Awa Jallow',
+//     role: 'Banjul',
+//     quote: 'Kunda Go makes my life so much easier fast delivery and everything I need in one app',
+//     avatar: 'https://images.unsplash.com/photo-1562173650-f61426fbe683?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2FtYmlhbiUyMG1hbnxlbnwwfHwwfHx8Mg%3D%3D',
+//   },
+//   {
+//     name: 'Ousman Sarr',
+//     role: 'Serekunda',
+//     quote: 'Reliable and intuitive. Shopping has never been this simple!',
+//     avatar: 'https://images.unsplash.com/photo-1533108344127-a586d2b02479?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+//   },
+//   {
+//     name: 'Fatou Bah',
+//     role: 'Bakau',
+//     quote: 'The order tracking is spot on. I always know exactly when my groceries arrive',
+//     avatar: 'https://images.unsplash.com/photo-1672760580588-17fb288ec41b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGdhbWJpYW4lMjBtYW58ZW58MHx8MHx8fDI%3D',
+//   },
+// ]
 
 function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
@@ -246,13 +246,13 @@ function App() {
       <main className="mx-auto max-w-7xl px-6 py-12">
         <section className="flex flex-col gap-5 md:flex-row lg:items-center md:h-[600px] overflow-hidden">
           <div ref={heroContentRef} className="space-y-6 flex-1 flex justify-end flex-col h-full lg:max-w-xl">
-            <div className="flex items-center gap-2 w-fit rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm shadow-slate-200/80">
+            {/* <div className="flex items-center gap-2 w-fit rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm shadow-slate-200/80">
               <span className="flex items-center gap-1 rounded-full bg-emerald-600 px-2.5 py-1 text-white">
                 <FaStar className="h-3.5 w-3.5" />
                 4.5
               </span>
               star reviews
-            </div>
+            </div> */}
 
             <div className="space-y-4">
               <h1 className="text-5xl font-black tracking-tight text-slate-950 sm:text-6xl">
@@ -307,13 +307,22 @@ function App() {
                 Our mission is to combine technology, trust, and convenience to bring everything you need right to your fingertips.
               </p>
 
-              <div className="grid gap-3 sm:grid-cols-3">
+              {/* <div className="grid gap-3 sm:grid-cols-3">
                 {stats.map((stat) => (
                   <div key={stat.label} className="stat-card rounded-[1.5rem] border border-slate-200 px-3 py-4 text-center">
                     <p className="text-2xl font-black tracking-tight text-emerald-600 sm:text-3xl">{stat.value}</p>
                     <p className="mt-1 text-xs text-slate-600 sm:mt-2 sm:text-sm">{stat.label}</p>
                   </div>
                 ))}
+              </div> */}
+
+              <div className="rounded-[2rem] border border-emerald-200 bg-emerald-50 px-6 py-8 text-center">
+                <p className="text-2xl font-black tracking-tight text-emerald-700 sm:text-3xl">
+                  Launching Soon Across The Gambia
+                </p>
+                <p className="mt-2 text-sm text-slate-600">
+                  We're preparing to bring you the best shopping and delivery experience. Stay tuned!
+                </p>
               </div>
             </div>
           </div>
@@ -323,7 +332,7 @@ function App() {
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">WHY KundaGo</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Built for the way you shop today</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-slate-700">Everything you need in one app fast, safe, and simple to use.</p>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-8 font-bold text-slate-700">Everything you need in one app fast, safe, and simple to use.</p>
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-12">
@@ -343,7 +352,7 @@ function App() {
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">FAQ</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">Everything you need to know</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-slate-700">Quick answers to the most common questions about shopping, delivery, and support with KundaGo.</p>
+            <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-slate-700">Quick answers to the most common questions about shopping, delivery, and support with KundaGo.</p>
           </div>
 
           <div className="mt-12 space-y-4">
@@ -374,7 +383,7 @@ function App() {
           </div>
         </section>
 
-        <section ref={testimonialsRef} id="testimonials" className="mt-24">
+        {/* <section ref={testimonialsRef} id="testimonials" className="mt-24">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">Testimonials</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">What our users say</h2>
@@ -406,6 +415,16 @@ function App() {
                 </div>
               </article>
             ))}
+          </div>
+        </section> */}
+
+        <section ref={testimonialsRef} id="testimonials" className="mt-24">
+          <div className="text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">Testimonials</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">What our users say</h2>
+          </div>
+          <div className="mx-auto mt-12 max-w-xl rounded-[2rem] border border-emerald-200/70 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-800 px-6 py-12 text-center text-white shadow-lg">
+            <p className="text-lg font-medium leading-relaxed">Coming after our official launch.</p>
           </div>
         </section>
       </main>
